@@ -494,7 +494,7 @@ main {
   border-radius: 16px;
   background-image: url("../images/hero/hero-mobile-bg.webp");
   background-repeat: no-repeat;
-  background-position: center bottom;
+  background-position: center;
   background-size: cover;
   color: var(--color-white);
 }
