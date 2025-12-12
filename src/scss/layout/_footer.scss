@@ -57,6 +57,14 @@
     font-size: 20px;
     color: var(--color-teal-blue);
     letter-spacing: .2px;
+
+    @media (min-width: 1024px) {
+      font-size: 24px;
+    }
+
+    @media (min-width: 1280px) {
+      font-size: 28px;
+    }
   }
 
   .contacts {
@@ -161,15 +169,21 @@
     }
   }
 
-  .trust-badges__list-item {
+  .trust-badges__list {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    row-gap: 20px;
+    column-gap: 32px;
 
-    &-img {
-      height: 64px;
-      width: auto;
+    &-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: 20px;
+
+      &-img {
+        height: 64px;
+        width: auto;
+        object-fit: contain;
+      }
     }
   }
 }
