@@ -1081,6 +1081,17 @@ main {
     line-height: 1.5;
   }
 }
+@media (min-width: 1280px) {
+  .providers__list.one-item .providers__list-item-name {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+}
+@media (min-width: 1280px) {
+  .providers__list.one-item .providers__list-item-name .name {
+    font-size: 30px;
+  }
+}
 
 .reviews h2 {
   margin-bottom: 32px;
