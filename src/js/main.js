@@ -199,67 +199,85 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /*Show more / less */
-    const CHAR_LIMIT = 240;
-    const blocks = document.querySelectorAll(".js-review-text");
+    (function () {
 
-    if (!blocks.length) return;
+        const CHAR_LIMIT = 240;
+        const parent = document.querySelector(".providers__list");
+        const blocks = document.querySelectorAll(".js-review-text");
 
-    blocks.forEach(block => {
-        const paragraphs = Array.from(block.querySelectorAll("p"));
-        if (!paragraphs.length) return;
+        if (!blocks.length) return;
 
-        const fullText = paragraphs.map(p => p.innerText).join("\n\n").trim();
+        // 🔹 Перевірка: чи є .one-item
+        const hasOneItem = parent && parent.classList.contains("one-item");
 
-        if (fullText.length <= CHAR_LIMIT) return;
-
-        block.dataset.originalHtml = block.innerHTML;
-
-        let shortText = fullText.slice(0, CHAR_LIMIT);
-        const lastSpace = shortText.lastIndexOf(" ");
-        if (lastSpace > 0) {
-            shortText = shortText.slice(0, lastSpace);
+        // 🔹 Якщо є .one-item і ширина > 1023 — не запускаємо
+        if (hasOneItem && window.innerWidth > 1023) {
+            return;
         }
-        block.dataset.shortText = shortText;
 
-        renderShort(block);
-    });
+        blocks.forEach(block => {
 
-    function renderShort(block) {
-        const short = block.dataset.shortText + "... ";
+            const paragraphs = Array.from(block.querySelectorAll("p"));
+            if (!paragraphs.length) return;
 
-        block.innerHTML = "";
+            const fullText = paragraphs.map(p => p.innerText).join("\n\n").trim();
 
-        const p = document.createElement("p");
-        p.textContent = short;
+            if (fullText.length <= CHAR_LIMIT) return;
 
-        const toggle = document.createElement("span");
-        toggle.className = "toggle-inline";
-        toggle.textContent = "Read more";
+            block.dataset.originalHtml = block.innerHTML;
 
-        toggle.addEventListener("click", () => {
-            renderFull(block);
-        });
+            let shortText = fullText.slice(0, CHAR_LIMIT);
+            const lastSpace = shortText.lastIndexOf(" ");
+            if (lastSpace > 0) {
+                shortText = shortText.slice(0, lastSpace);
+            }
 
-        p.appendChild(toggle);
-        block.appendChild(p);
-    }
+            block.dataset.shortText = shortText;
 
-    function renderFull(block) {
-        block.innerHTML = block.dataset.originalHtml;
-
-        const lastP = block.querySelector("p:last-of-type");
-        if (!lastP) return;
-
-        const toggle = document.createElement("span");
-        toggle.className = "toggle-inline";
-        toggle.textContent = "Read less";
-
-        toggle.addEventListener("click", () => {
             renderShort(block);
         });
 
-        lastP.appendChild(toggle);
-    }
+        function renderShort(block) {
+
+            const short = block.dataset.shortText + "... ";
+
+            block.innerHTML = "";
+
+            const p = document.createElement("p");
+            p.textContent = short;
+
+            const toggle = document.createElement("span");
+            toggle.className = "toggle-inline";
+            toggle.textContent = "Read more";
+
+            toggle.addEventListener("click", () => {
+                renderFull(block);
+            });
+
+            p.appendChild(toggle);
+            block.appendChild(p);
+        }
+
+        function renderFull(block) {
+
+            block.innerHTML = block.dataset.originalHtml;
+
+            const lastP = block.querySelector("p:last-of-type");
+            if (!lastP) return;
+
+            const toggle = document.createElement("span");
+            toggle.className = "toggle-inline";
+            toggle.textContent = "Read less";
+
+            toggle.addEventListener("click", () => {
+                renderShort(block);
+            });
+
+            lastP.appendChild(toggle);
+        }
+
+    })();
+
 
     /*Scroll to the anchor*/
 

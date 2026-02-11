@@ -122,5 +122,45 @@
       color: var(--color-teal-deep);
       cursor: pointer;
     }
+    
+    &.one-item {
+      @media (min-width: 1024px) {
+        grid-template-columns: 1fr;
+      }
+      
+      .providers__list-item {
+        @media (min-width: 1024px) {
+          flex-direction: row;
+        }
+
+        &-img {
+          @media (min-width: 1024px) {
+            flex: 0 0 260px;
+            border-radius: 16px 0 0 16px;
+          }
+
+          @media (min-width: 1280px) {
+            flex: 0 0 420px;
+          }
+        }
+
+        &-text {
+          @media (min-width: 1024px) {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 0 16px 16px 0;
+            font-size: 18px;
+          }
+
+          @media (min-width: 1280px) {
+            padding-right: 50px;
+            padding-left: 50px;
+            font-size: 20px;
+            line-height: 1.5;
+          }
+        }
+      }
+    }
   }
 }
